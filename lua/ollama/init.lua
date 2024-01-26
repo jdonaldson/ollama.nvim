@@ -291,30 +291,30 @@ function M.prompt(name)
 		end,
 	})
 	---@param j Job
-	job:add_on_exit_callback(function(j)
-		if stream_called then
-			return
-		end
+	-- job:add_on_exit_callback(function(j)
+	-- 	if stream_called then
+	-- 		return
+	-- 	end
 
-		if j.code ~= 0 then
-			vim.schedule_wrap(vim.api.nvim_notify)(
-				("Connection error (Code %s)"):format(tostring(j.code)),
-				vim.log.levels.ERROR,
-				{ title = "Ollama" }
-			)
-			return
-		end
+	-- 	if j.code ~= 0 then
+	-- 		vim.schedule_wrap(vim.api.nvim_notify)(
+	-- 			("Connection error (Code %s)"):format(tostring(j.code)),
+	-- 			vim.log.levels.ERROR,
+	-- 			{ title = "Ollama" }
+	-- 		)
+	-- 		return
+	-- 	end
 
-		-- not the prettiest, but reuses the stream handler to process the response
-		-- since it comes in the same format.
-		require("ollama.util").handle_stream(cb)(nil, j:result()[1])
+	-- 	-- not the prettiest, but reuses the stream handler to process the response
+	-- 	-- since it comes in the same format.
+	-- 	require("ollama.util").handle_stream(cb)(nil, j:result()[1])
 
-		-- if res.body is like { error = "..." } then it should
-		-- be handled in the handle_stream method
-		del_job(job)
-	end)
+	-- 	-- if res.body is like { error = "..." } then it should
+	-- 	-- be handled in the handle_stream method
+	-- 	del_job(job)
+	-- end)
 
-	add_job(job)
+	-- add_job(job)
 end
 
 ---@class Ollama.ModelsApiResponseModel
