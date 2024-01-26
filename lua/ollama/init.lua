@@ -311,8 +311,8 @@ function M.prompt(name)
 
 		-- if res.body is like { error = "..." } then it should
 		-- be handled in the handle_stream method
+		del_job(job)
 	end)
-	job:add_on_exit_callback(del_job)
 
 	add_job(job)
 end
